@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Stevebauman\Purify\Facades\Purify;
 
 class BitflanSettingsPage extends SettingsPage {
-    protected $toSanitize = [ 'title', 'summary' ];
+    protected $toSanitize = [];
 
     public function mutateFormDataBeforeSave(array $data) : array {
         foreach($this->toSanitize as $field) {

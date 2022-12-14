@@ -8,7 +8,7 @@
                 incNumbers: true,
                 incLowercase: true,
                 incUppercase: true,
-                excAmbiguous: true,
+                incAmbiguous: true,
 
                 generate() {
                     let list = '';
@@ -25,7 +25,7 @@
                     if(this.incUppercase)
                         list += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-                    if(!this.excAmbiguous)
+                    if(this.excAmbiguous)
                         list += '(){}[]/\\\'"`~,;:.<>';
                 
                     let password = '';
@@ -88,7 +88,7 @@
             <div class="form-group">
                 <label for="" class="custom-label">{{ trans('webtools/tools/password-generator.ambiguous') }}</label>
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" x-model="excAmbiguous" checked role="switch" id="switch-6">
+                    <input class="form-check-input" type="checkbox" x-model="incAmbiguous" checked role="switch" id="switch-6">
                     <label class="form-check-label" for="switch-6">( { } [ ] ( ) / \ ' " ` ~ , ; : . < > )</label>
                 </div>
             </div>

@@ -2,6 +2,8 @@
 
 use App\Filament\Pages\Tools\ManageBcryptGeneratorSettings;
 use App\Filament\Pages\Tools\ManageBinaryToTextSettings;
+use App\Filament\Pages\Tools\ManageCaseConverterSettings;
+use App\Filament\Pages\Tools\ManageCreditCardValidatorSettings;
 use App\Filament\Pages\Tools\ManageCSSMinifierSettings;
 use App\Filament\Pages\Tools\ManageCSVToJSONSettings;
 use App\Filament\Pages\Tools\ManageDomainGeneratorSettings;
@@ -21,9 +23,13 @@ use App\Filament\Pages\Tools\ManageHTMLTagsStripperSettings;
 use App\Filament\Pages\Tools\ManageHTMLToMarkdownSettings;
 use App\Filament\Pages\Tools\ManageHTTPHeadersParserSettings;
 use App\Filament\Pages\Tools\ManageHTTPStatusCodeCheckerSettings;
+use App\Filament\Pages\Tools\ManageImageCompressorSettings;
+use App\Filament\Pages\Tools\ManageImageResizerSettings;
 use App\Filament\Pages\Tools\ManageImageToBase64Settings;
 use App\Filament\Pages\Tools\ManageIPInformationSettings;
 use App\Filament\Pages\Tools\ManageIPToHostnameSettings;
+use App\Filament\Pages\Tools\ManageJPGToPNGSettings;
+use App\Filament\Pages\Tools\ManageJPGToWEBPSettings;
 use App\Filament\Pages\Tools\ManageJSFormatterSettings;
 use App\Filament\Pages\Tools\ManageJSMinifierSettings;
 use App\Filament\Pages\Tools\ManageJSObfuscatorSettings;
@@ -32,31 +38,50 @@ use App\Filament\Pages\Tools\ManageLineBreakRemoverSettings;
 use App\Filament\Pages\Tools\ManageLoremIpsumGeneratorSettings;
 use App\Filament\Pages\Tools\ManageMarkdownToHTMLSettings;
 use App\Filament\Pages\Tools\ManageMD5GeneratorSettings;
+use App\Filament\Pages\Tools\ManageMemoryStorageConverterSettings;
+use App\Filament\Pages\Tools\ManagePalindromeCheckerSettings;
 use App\Filament\Pages\Tools\ManagePasswordGeneratorSettings;
 use App\Filament\Pages\Tools\ManagePasswordStrengthTestSettings;
 use App\Filament\Pages\Tools\ManagePingSettings;
+use App\Filament\Pages\Tools\ManagePNGToJPGSettings;
+use App\Filament\Pages\Tools\ManagePNGToWEBPSettings;
 use App\Filament\Pages\Tools\ManagePrivacyPolicyGeneratorSettings;
+use App\Filament\Pages\Tools\ManagePunycodeToUnicodeSettings;
 use App\Filament\Pages\Tools\ManageQRCodeReaderSettings;
 use App\Filament\Pages\Tools\ManageQRGeneratorSettings;
+use App\Filament\Pages\Tools\ManageRandomNumberGeneratorSettings;
+use App\Filament\Pages\Tools\ManageRedirectCheckerSettings;
 use App\Filament\Pages\Tools\ManageRGBToHexSettings;
 use App\Filament\Pages\Tools\ManageRobotstxtGeneratorSettings;
+use App\Filament\Pages\Tools\ManageROT13DecoderSettings;
+use App\Filament\Pages\Tools\ManageROT13EncoderSettings;
 use App\Filament\Pages\Tools\ManageSEOTagsGeneratorSettings;
 use App\Filament\Pages\Tools\ManageSHAGeneratorSettings;
+use App\Filament\Pages\Tools\ManageSourceCodeDownloaderSettings;
 use App\Filament\Pages\Tools\ManageSQLBeautifierSettings;
 use App\Filament\Pages\Tools\ManageSSLCheckerSettings;
 use App\Filament\Pages\Tools\ManageTermsOfServiceGeneratorSettings;
+use App\Filament\Pages\Tools\ManageTextReplacerSettings;
+use App\Filament\Pages\Tools\ManageTextReverserSettings;
 use App\Filament\Pages\Tools\ManageTextSeparatorSettings;
 use App\Filament\Pages\Tools\ManageTextToBase64Settings;
 use App\Filament\Pages\Tools\ManageTextToBinarySettings;
+use App\Filament\Pages\Tools\ManageTextToSlugSettings;
 use App\Filament\Pages\Tools\ManageTimestampConverterSettings;
+use App\Filament\Pages\Tools\ManageTwitterCardGeneratorSettings;
+use App\Filament\Pages\Tools\ManageUnicodeToPunycodeSettings;
 use App\Filament\Pages\Tools\ManageURLDecoderSettings;
 use App\Filament\Pages\Tools\ManageURLEncoderSettings;
 use App\Filament\Pages\Tools\ManageURLExtractorSettings;
+use App\Filament\Pages\Tools\ManageURLParserSettings;
 use App\Filament\Pages\Tools\ManageURLUnshortenerSettings;
 use App\Filament\Pages\Tools\ManageUserAgentFinderSettings;
 use App\Filament\Pages\Tools\ManageUUIDv4GeneratorSettings;
+use App\Filament\Pages\Tools\ManageWEBPToJPGSettings;
+use App\Filament\Pages\Tools\ManageWEBPToPNGSettings;
 use App\Filament\Pages\Tools\ManageWebsiteStatusCheckerSettings;
 use App\Filament\Pages\Tools\ManageWordCountSettings;
+use App\Filament\Pages\Tools\ManageWordDensityCounterSettings;
 use App\Filament\Pages\Tools\ManageYouTubeThumbnailDownloaderSettings;
 use App\Http\Livewire\Tools\BcryptGenerator;
 use App\Http\Livewire\Tools\CSVToJSON;
@@ -71,7 +96,11 @@ use App\Http\Livewire\Tools\MD5Generator;
 use App\Http\Livewire\Tools\Ping;
 use App\Http\Livewire\Tools\PrivacyPolicyGenerator;
 use App\Http\Livewire\Tools\QRGenerator;
+use App\Http\Livewire\Tools\RedirectChecker;
+use App\Http\Livewire\Tools\ROT13Decoder;
+use App\Http\Livewire\Tools\ROT13Encoder;
 use App\Http\Livewire\Tools\SHAGenerator;
+use App\Http\Livewire\Tools\SourceCodeDownloader;
 use App\Http\Livewire\Tools\SSLChecker;
 use App\Http\Livewire\Tools\TermsOfService;
 use App\Http\Livewire\Tools\TermsOfServiceGenerator;
@@ -85,6 +114,8 @@ use App\Http\Livewire\Tools\WebsiteStatusChecker;
 use App\Http\Livewire\Tools\WhatsMyIp;
 use App\Settings\Tools\BcryptGeneratorSettings;
 use App\Settings\Tools\BinaryToTextSettings;
+use App\Settings\Tools\CaseConverterSettings;
+use App\Settings\Tools\CreditCardValidatorSettings;
 use App\Settings\Tools\CSSFormatterSettings;
 use App\Settings\Tools\CSSMinifierSettings;
 use App\Settings\Tools\CSVToJSONSettings;
@@ -105,9 +136,13 @@ use App\Settings\Tools\HTMLTagsStripperSettings;
 use App\Settings\Tools\HTMLToMarkdownSettings;
 use App\Settings\Tools\HTTPHeadersParserSettings;
 use App\Settings\Tools\HTTPStatusCodeCheckerSettings;
+use App\Settings\Tools\ImageCompressorSettings;
+use App\Settings\Tools\ImageResizerSettings;
 use App\Settings\Tools\ImageToBase64Settings;
 use App\Settings\Tools\IPInformationSettings;
 use App\Settings\Tools\IPToHostnameSettings;
+use App\Settings\Tools\JPGToPNGSettings;
+use App\Settings\Tools\JPGToWEBPSettings;
 use App\Settings\Tools\JSFormatterSettings;
 use App\Settings\Tools\JSMinifierSettings;
 use App\Settings\Tools\JSObfuscatorSettings;
@@ -116,33 +151,52 @@ use App\Settings\Tools\LineBreakRemoverSettings;
 use App\Settings\Tools\LoremIpsumGeneratorSettings;
 use App\Settings\Tools\MarkdownToHTMLSettings;
 use App\Settings\Tools\MD5GeneratorSettings;
+use App\Settings\Tools\MemoryStorageConverterSettings;
+use App\Settings\Tools\PalindromeCheckerSettings;
 use App\Settings\Tools\PasswordGeneratorSettings;
 use App\Settings\Tools\PasswordStrengthTestSettings;
 use App\Settings\Tools\PingSettings;
+use App\Settings\Tools\PNGToJPGSettings;
+use App\Settings\Tools\PNGToWEBPSettings;
 use App\Settings\Tools\PrivacyPolicyGeneratorSettings;
+use App\Settings\Tools\PunycodeToUnicodeSettings;
 use App\Settings\Tools\QRCodeReaderSettings;
 use App\Settings\Tools\QRGeneratorSettings;
+use App\Settings\Tools\RandomNumberGeneratorSettings;
+use App\Settings\Tools\RedirectCheckerSettings;
 use App\Settings\Tools\RGBToHexSettings;
 use App\Settings\Tools\RobotstxtGenerator;
 use App\Settings\Tools\RobotstxtGeneratorSettings;
+use App\Settings\Tools\ROT13DecoderSettings;
+use App\Settings\Tools\ROT13EncoderSettings;
 use App\Settings\Tools\SEOTagsGeneratorSettings;
 use App\Settings\Tools\SHAGeneratorSettings;
+use App\Settings\Tools\SourceCodeDownloaderSettings;
 use App\Settings\Tools\SQLBeautifierSettings;
 use App\Settings\Tools\SSLCheckerSettings;
 use App\Settings\Tools\TermsOfServiceGeneratorSettings;
+use App\Settings\Tools\TextReplacerSettings;
+use App\Settings\Tools\TextReverserSettings;
 use App\Settings\Tools\TextSeparatorSettings;
 use App\Settings\Tools\TextToBase64Settings;
 use App\Settings\Tools\TextToBinarySettings;
+use App\Settings\Tools\TextToSlugSettings;
 use App\Settings\Tools\TimestampConverterSettings;
+use App\Settings\Tools\TwitterCardGeneratorSettings;
+use App\Settings\Tools\UnicodeToPunycodeSettings;
 use App\Settings\Tools\URLDecoderSettings;
 use App\Settings\Tools\URLEncoderSettings;
 use App\Settings\Tools\URLExtractorSettings;
+use App\Settings\Tools\URLParserSettings;
 use App\Settings\Tools\URLUnshortenerSettings;
 use App\Settings\Tools\UserAgentFinderSettings;
 use App\Settings\Tools\UUIDv4GeneratorSettings;
+use App\Settings\Tools\WEBPToJPGSettings;
+use App\Settings\Tools\WEBPToPNGSettings;
 use App\Settings\Tools\WebsiteStatusCheckerSettings;
 use App\Settings\Tools\WhatsMyIpSettings;
 use App\Settings\Tools\WordCountSettings;
+use App\Settings\Tools\WordDensityCounterSettings;
 use App\Settings\Tools\YouTubeThumbnailDownloaderSettings;
 
 return [
@@ -418,6 +472,43 @@ return [
                         'settings-page' => ManageEmailValidatorSettings::class
                     ]
                 ],
+
+                'RedirectChecker' => [
+                    'name' => 'redirect-checker',
+
+                    'settings'  => RedirectCheckerSettings::class,
+                    'component' => RedirectChecker::class,
+
+                    'templates' => [
+                        'header'   => 'modules.tools.redirect-checker.header',
+                        'selector' => 'modules.tools.redirect-checker.selector'
+                    ],
+
+                    'admin' => [
+                        'title'         => 'Redirect Checker',
+                        'summary'       => 'Check where a page redirects to.',
+                        'settings-page' => ManageRedirectCheckerSettings::class
+                    ]
+                ],
+
+                'RandomNumberGenerator' => [
+                    'name' => 'random-number-generator',
+
+                    'settings'  => RandomNumberGeneratorSettings::class,
+
+                    'view' => 'modules.tools.random-number-generator.view',
+
+                    'templates' => [
+                        'header'   => 'modules.tools.random-number-generator.header',
+                        'selector' => 'modules.tools.random-number-generator.selector'
+                    ],
+
+                    'admin' => [
+                        'title'         => 'Random Number Generator',
+                        'summary'       => 'Generate Random Numbers in Range',
+                        'settings-page' => ManageRandomNumberGeneratorSettings::class
+                    ]
+                ],
             ]
         ],
 
@@ -654,6 +745,251 @@ return [
                         'summary'       => 'Convert JSON to CSV',
                         'settings-page' => ManageJSONToCSVSettings::class
                     ]
+                ],
+
+                'ROT13Encoder' => [
+                    'name' => 'rot13-encoder',
+
+                    'settings'  => ROT13EncoderSettings::class,
+
+                    'component' => ROT13Encoder::class,
+                    'templates' => [
+                        'header'   => 'modules.tools.rot13-encoder.header',
+                        'selector' => 'modules.tools.rot13-encoder.selector'
+                    ],
+
+                    'admin' => [
+                        'title'         => 'ROT13 Encoder',
+                        'summary'       => 'Encode data to any ROT value.',
+                        'settings-page' => ManageROT13EncoderSettings::class
+                    ]
+                ],
+
+                'ROT13Decoder' => [
+                    'name' => 'rot13-decoder',
+
+                    'settings'  => ROT13DecoderSettings::class,
+
+                    'component' => ROT13Decoder::class,
+                    'templates' => [
+                        'header'   => 'modules.tools.rot13-decoder.header',
+                        'selector' => 'modules.tools.rot13-decoder.selector'
+                    ],
+
+                    'admin' => [
+                        'title'         => 'ROT13 Decoder',
+                        'summary'       => 'Decode data from any ROT value.',
+                        'settings-page' => ManageROT13DecoderSettings::class
+                    ]
+                ],
+
+                'UnicodeToPunycode' => [
+                    'name' => 'unicode-to-punycode',
+                    
+                    'settings' => UnicodeToPunycodeSettings::class,
+                    'view' => 'modules.tools.unicode-to-punycode.view',
+                    'templates' => [
+                        'header' => 'modules.tools.unicode-to-punycode.header',
+                        'selector' => 'modules.tools.unicode-to-punycode.selector',
+                    ],
+
+                    'scripts' => [
+                        [ 'js/punycode.js', 'internal' ],
+                    ],
+
+                    'admin' => [
+                        'title' => 'Unicode to Punycode',
+                        'summary' => 'Convert Unicode to Punycode',
+                        'settings-page' => ManageUnicodeToPunycodeSettings::class
+                    ]
+                ],
+
+                'PunycodeToUnicode' => [
+                    'name' => 'punycode-to-unicode',
+                    
+                    'settings' => PunycodeToUnicodeSettings::class,
+
+                    'view' => 'modules.tools.punycode-to-unicode.view',
+                    'templates' => [
+                        'header' => 'modules.tools.punycode-to-unicode.header',
+                        'selector' => 'modules.tools.punycode-to-unicode.selector',
+                    ],
+                    
+                    'scripts' => [
+                        [ 'js/punycode.js', 'internal' ],
+                    ],
+
+                    'admin' => [
+                        'title' => 'Punycode to Unicode',
+                        'summary' => 'Convert Punycode to Unicode',
+                        'settings-page' => ManagePunycodeToUnicodeSettings::class
+                    ]
+                ],
+
+                'JPGToPNG' => [
+                    'name' => 'jpg-to-png',
+                    
+                    'settings' => JPGToPNGSettings::class,
+
+                    'view' => 'modules.tools.jpg-to-png.view',
+                    'templates' => [
+                        'header' => 'modules.tools.jpg-to-png.header',
+                        'selector' => 'modules.tools.jpg-to-png.selector',
+                    ],
+
+                    'admin' => [
+                        'title' => 'JPG To PNG',
+                        'summary' => 'Convert JPG to PNG',
+                        'settings-page' => ManageJPGToPNGSettings::class
+                    ]
+                ],
+
+                'JPGToWEBP' => [
+                    'name' => 'jpg-to-webp',
+                    
+                    'settings' => JPGToWEBPSettings::class,
+
+                    'view' => 'modules.tools.jpg-to-webp.view',
+                    'templates' => [
+                        'header' => 'modules.tools.jpg-to-webp.header',
+                        'selector' => 'modules.tools.jpg-to-webp.selector',
+                    ],
+
+                    'admin' => [
+                        'title' => 'JPG To WEBP',
+                        'summary' => 'Convert JPG to WEBP',
+                        'settings-page' => ManageJPGToWEBPSettings::class
+                    ]
+                ],
+
+                'PNGToJPG' => [
+                    'name' => 'png-to-jpg',
+                    
+                    'settings' => PNGToJPGSettings::class,
+
+                    'view' => 'modules.tools.png-to-jpg.view',
+                    'templates' => [
+                        'header' => 'modules.tools.png-to-jpg.header',
+                        'selector' => 'modules.tools.png-to-jpg.selector',
+                    ],
+
+                    'admin' => [
+                        'title' => 'PNG to JPG',
+                        'summary' => 'Convert PNG to JPG',
+                        'settings-page' => ManagePNGToJPGSettings::class
+                    ]
+                ],
+
+                'PNGToWEBP' => [
+                    'name' => 'png-to-webp',
+                    
+                    'settings' => PNGToWEBPSettings::class,
+
+                    'view' => 'modules.tools.png-to-webp.view',
+                    'templates' => [
+                        'header' => 'modules.tools.png-to-webp.header',
+                        'selector' => 'modules.tools.png-to-webp.selector',
+                    ],
+
+                    'admin' => [
+                        'title' => 'PNG to WEBP',
+                        'summary' => 'Convert PNG to WEBP',
+                        'settings-page' => ManagePNGToWEBPSettings::class
+                    ]
+                ],
+
+                'WEBPToJPG' => [
+                    'name' => 'webp-to-jpg',
+                    
+                    'settings' => WEBPToJPGSettings::class,
+
+                    'view' => 'modules.tools.webp-to-jpg.view',
+                    'templates' => [
+                        'header' => 'modules.tools.webp-to-jpg.header',
+                        'selector' => 'modules.tools.webp-to-jpg.selector',
+                    ],
+
+                    'admin' => [
+                        'title' => 'WEBP to JPG',
+                        'summary' => 'Convert WEBP to JPG',
+                        'settings-page' => ManageWEBPToJPGSettings::class
+                    ]
+                ],
+
+                'WEBPToPNG' => [
+                    'name' => 'webp-to-png',
+                    
+                    'settings' => WEBPToPNGSettings::class,
+
+                    'view' => 'modules.tools.webp-to-png.view',
+                    'templates' => [
+                        'header' => 'modules.tools.webp-to-png.header',
+                        'selector' => 'modules.tools.webp-to-png.selector',
+                    ],
+
+                    'admin' => [
+                        'title' => 'WEBP to PNG',
+                        'summary' => 'Convert WEBP to PNG',
+                        'settings-page' => ManageWEBPToPNGSettings::class
+                    ]
+                ],
+
+                'ImageCompressor' => [
+                    'name' => 'image-compressor',
+                    
+                    'settings' => ImageCompressorSettings::class,
+
+                    'view' => 'modules.tools.image-compressor.view',
+                    'templates' => [
+                        'header' => 'modules.tools.image-compressor.header',
+                        'selector' => 'modules.tools.image-compressor.selector',
+                    ],
+
+                    'admin' => [
+                        'title' => 'Image Compressor',
+                        'summary' => 'Compress an Image',
+                        'settings-page' => ManageImageCompressorSettings::class
+                    ]
+                ],
+
+                'ImageResizer' => [
+                    'name' => 'image-resizer',
+                    
+                    'settings' => ImageResizerSettings::class,
+
+                    'view' => 'modules.tools.image-resizer.view',
+                    'templates' => [
+                        'header' => 'modules.tools.image-resizer.header',
+                        'selector' => 'modules.tools.image-resizer.selector',
+                    ],
+
+                    'admin' => [
+                        'title' => 'Image Resizer',
+                        'summary' => 'Resize an Image',
+                        'settings-page' => ManageImageResizerSettings::class
+                    ]
+                ],
+
+                'MemoryStorageConverter' => [
+                    'name' => 'memory-storage-converter',
+                    
+                    'settings' => MemoryStorageConverterSettings::class,
+
+                    'view' => 'modules.tools.memory-storage-converter.view',
+                    'templates' => [
+                        'header' => 'modules.tools.memory-storage-converter.header',
+                        'selector' => 'modules.tools.memory-storage-converter.selector',
+                    ],
+
+                    'scripts' => [
+                        [ 'js/converters.js', 'internal' ]
+                    ],
+
+                    'admin' => [
+                        'title' => 'Memory / Storage Converter',
+                        'summary' => 'Convert between data storage units.',
+                        'settings-page' => ManageMemoryStorageConverterSettings::class
+                    ]
                 ]
             ]
         ],
@@ -770,6 +1106,27 @@ return [
                         'title'         => 'Hash Generator',
                         'summary'       => 'Generate different hashes.',
                         'settings-page' => ManageHashGeneratorSettings::class
+                    ]
+                ],
+
+                'CreditCardValidator' => [
+                    'name' => 'credit-card-validator',
+                    
+                    'settings' => CreditCardValidatorSettings::class,
+                    'view' => 'modules.tools.credit-card-validator.view',
+                    'templates' => [
+                        'header' => 'modules.tools.credit-card-validator.header',
+                        'selector' => 'modules.tools.credit-card-validator.selector',
+                    ],
+
+                    'scripts' => [
+                        [ 'js/cards.js', 'internal' ],
+                    ],
+
+                    'admin' => [
+                        'title' => 'Credit Card Validator',
+                        'summary' => 'Validate Card Details online',
+                        'settings-page' => ManageCreditCardValidatorSettings::class
                     ]
                 ]
             ]
@@ -979,6 +1336,33 @@ return [
                         'title'         => 'SEO Tags Generator',
                         'summary'       => 'Generate SEO & OpenGraph tags.',
                         'settings-page' => ManageSEOTagsGeneratorSettings::class
+                    ]
+                ],
+
+                'TwitterCardGenerator' => [
+                    'name' => 'twitter-card-generator',
+
+                    'settings'  => TwitterCardGeneratorSettings::class,
+                    'view' => 'modules.tools.twitter-card-generator.view',
+
+                    'styles' => [
+                        [ 'css/ace-custom.css', 'internal' ]
+                    ],
+
+                    'scripts' => [ 
+                        [ 'js/seotags.js', 'internal' ], 
+                        [ 'https://unpkg.com/codeflask/build/codeflask.min.js', 'external' ],
+                    ],
+
+                    'templates' => [
+                        'header'   => 'modules.tools.twitter-card-generator.header',
+                        'selector' => 'modules.tools.twitter-card-generator.selector'
+                    ],
+
+                    'admin' => [
+                        'title'         => 'Twitter Card Generator',
+                        'summary'       => 'Generate Twitter Embed Cards.',
+                        'settings-page' => ManageTwitterCardGeneratorSettings::class
                     ]
                 ],
 
@@ -1402,6 +1786,126 @@ return [
                         'settings-page' => ManageHTACCESSRedirectGeneratorSettings::class
                     ]
                 ],
+
+                'SourceCodeDownloader' => [
+                    'name' => 'source-code-downloader',
+
+                    'settings'  => SourceCodeDownloaderSettings::class,
+
+                    'component' => SourceCodeDownloader::class,
+                    'templates' => [
+                        'header'   => 'modules.tools.source-code-downloader.header',
+                        'selector' => 'modules.tools.source-code-downloader.selector'
+                    ],
+
+                    'admin' => [
+                        'title'         => 'Source Code Downloader',
+                        'summary'       => 'Download a webpage\'s source-code.',
+                        'settings-page' => ManageSourceCodeDownloaderSettings::class
+                    ]
+                ],
+
+                'TextReplacer' => [
+                    'name' => 'text-replacer',
+                    
+                    'settings' => TextReplacerSettings::class,
+                    'view' => 'modules.tools.text-replacer.view',
+                    'templates' => [
+                        'header' => 'modules.tools.text-replacer.header',
+                        'selector' => 'modules.tools.text-replacer.selector',
+                    ],
+
+                    'admin' => [
+                        'title' => 'Text Replacer',
+                        'summary' => 'Replace text in subject.',
+                        'settings-page' => ManageTextReplacerSettings::class
+                    ]
+                ],
+
+                'TextReverser' => [
+                    'name' => 'text-reverser',
+                    
+                    'settings' => TextReverserSettings::class,
+                    'view' => 'modules.tools.text-reverser.view',
+                    'templates' => [
+                        'header' => 'modules.tools.text-reverser.header',
+                        'selector' => 'modules.tools.text-reverser.selector',
+                    ],
+
+                    'admin' => [
+                        'title' => 'Text Reverser',
+                        'summary' => 'Reverse text.',
+                        'settings-page' => ManageTextReverserSettings::class
+                    ]
+                ],
+
+                'WordDensityCounter' => [
+                    'name' => 'word-density-counter',
+                    
+                    'settings' => WordDensityCounterSettings::class,
+                    'view' => 'modules.tools.word-density-counter.view',
+                    'templates' => [
+                        'header' => 'modules.tools.word-density-counter.header',
+                        'selector' => 'modules.tools.word-density-counter.selector',
+                    ],
+
+                    'admin' => [
+                        'title' => 'Word Density Counter',
+                        'summary' => 'Count Density of Words',
+                        'settings-page' => ManageWordDensityCounterSettings::class
+                    ]
+                ],
+
+                'PalindromeChecker' => [
+                    'name' => 'palindrome-checker',
+                    
+                    'settings' => PalindromeCheckerSettings::class,
+                    'view' => 'modules.tools.palindrome-checker.view',
+                    'templates' => [
+                        'header' => 'modules.tools.palindrome-checker.header',
+                        'selector' => 'modules.tools.palindrome-checker.selector',
+                    ],
+
+                    'admin' => [
+                        'title' => 'Palindrome Checker',
+                        'summary' => 'Check if String is Palindrome',
+                        'settings-page' => ManagePalindromeCheckerSettings::class
+                    ]
+                ],
+
+                'CaseConverter' => [
+                    'name' => 'case-converter',
+                    
+                    'settings' => CaseConverterSettings::class,
+                    'view' => 'modules.tools.case-converter.view',
+                    'templates' => [
+                        'header' => 'modules.tools.case-converter.header',
+                        'selector' => 'modules.tools.case-converter.selector',
+                    ],
+
+                    'admin' => [
+                        'title' => 'Case Converter',
+                        'summary' => 'Convert Case of Text',
+                        'settings-page' => ManageCaseConverterSettings::class
+                    ]
+                ],
+
+                'TextToSlug' => [
+                    'name' => 'text-to-slug',
+                    
+                    'settings' => TextToSlugSettings::class,
+                    'view' => 'modules.tools.text-to-slug.view',
+                    'templates' => [
+                        'header' => 'modules.tools.text-to-slug.header',
+                        'selector' => 'modules.tools.text-to-slug.selector',
+                    ],
+
+                    'admin' => [
+                        'title' => 'Text to Slug',
+                        'summary' => 'Convert Text to Slugs',
+                        'settings-page' => ManageTextToSlugSettings::class
+                    ]
+                ]
             ]
         ],
 
@@ -1519,6 +2023,24 @@ return [
                         'settings-page' => ManageHTTPStatusCodeCheckerSettings::class
                     ]
                 ],
+
+                'URLParser' => [
+                    'name' => 'url-parser',
+                    
+                    'settings' => URLParserSettings::class,
+
+                    'view' => 'modules.tools.url-parser.view',
+                    'templates' => [
+                        'header' => 'modules.tools.url-parser.header',
+                        'selector' => 'modules.tools.url-parser.selector',
+                    ],
+
+                    'admin' => [
+                        'title' => 'URL Parser',
+                        'summary' => 'Parse any URL',
+                        'settings-page' => ManageURLParserSettings::class
+                    ]
+                ]
             ]
         ],
     ]

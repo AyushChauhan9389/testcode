@@ -6,7 +6,7 @@ class Bitflan {
     const Name       = 'CyberTools';
     const ID         = '39362748';
     CONST URL        = 'https://bitflan.com/';
-    const Version    = '1.4';
+    const Version    = '1.5';
     const DEMO_MODE  = FALSE;
 
     const VendorName = 'Bitflan';

@@ -60,6 +60,19 @@
         svg{
             margin-right: 6px;
         }
+        &.btn__dark{
+            background-color: transparent;
+            border-color: var(--color-black);
+            color: var(--color-black);
+            &:hover,
+            &:focus,
+            &:active{
+                opacity: 1;
+                background-color: transparent;
+                border-color: var(--color-primary);
+                color: var(--color-primary);
+            }
+        }
     }
     &.dark-hover{
         &:hover,
@@ -70,6 +83,22 @@
             svg{
                 path{
                     fill: var(--color-white);
+                }
+            }
+        }
+    }
+    &.red{
+        background: var(--color-red);
+        color: var(--color-white);
+        &:hover,
+        &:focus,
+        &:active{
+            background: var(--color-red-light);
+            color: var(--color-red);
+            border-color: var(--color-red);
+            svg{
+                path{
+                    fill: var(--color-red);
                 }
             }
         }

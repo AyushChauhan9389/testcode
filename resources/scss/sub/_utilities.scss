@@ -276,6 +276,13 @@ hr{
         border-color: var(--color-dark-border);
         color: var(--color-white);
     }
+    .custom-input{
+        &.form-select, &.form-select:focus{
+            background-color: var(--color-dark-light);
+            border-color: var(--color-dark-border);
+            color: var(--color-white);
+        }
+    }
     label, .custom-label{
         color: var(--color-white);
     }

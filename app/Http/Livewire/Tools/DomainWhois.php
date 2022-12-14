@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Tools;
 
 use App\Settings\Tools\DomainGeneratorSettings;
+use App\Settings\Tools\DomainWhoisSettings;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use Illuminate\Support\Str;
@@ -27,6 +28,13 @@ class DomainWhois extends Component
                 'xyz'  => 'whois.nic.xyz',
                 'biz'  => 'whois.nic.biz'
             ];
+
+            $settings = app(DomainWhoisSettings::class);
+            if($settings->servers && count($settings->servers)) {
+                foreach($settings->servers as $tld => $server) {
+                    $this->servers[$tld] = $server;
+                }
+            }
         } else {
             $this->error = 4;
         }

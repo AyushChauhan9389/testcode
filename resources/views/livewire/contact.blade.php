@@ -43,7 +43,7 @@
         </div>
 
         @if($recaptcha)
-            <div wire:ignore class="col-12">
+            <div wire:ignore class="col-12 mb-3">
                 <div class="g-recaptcha" data-sitekey="{{ $siteKey }}"></div>
             </div>
         @endif

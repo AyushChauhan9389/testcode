@@ -65,8 +65,34 @@ class ToolSlugSettings extends Settings {
     public ?string $PrivacyPolicyGenerator;
     public ?string $TermsOfServiceGenerator;
     public ?string $EmailValidator;
+    public ?string $SourceCodeDownloader;
+    public ?string $MemoryStorageConverter;
+    public ?string $CreditCardValidator;
+    public ?string $TwitterCardGenerator;
+    public ?string $TextReplacer;
+    public ?string $CaseConverter;
+    public ?string $WordDensityCounter;
+    public ?string $TextToSlug;
+    public ?string $TextReverser;
+    public ?string $RandomNumberGenerator;
+    public ?string $RedirectChecker;
+    public ?string $PalindromeChecker;
+    public ?string $ROT13Encoder;
+    public ?string $ImageResizer;
+    public ?string $ImageCompressor;
+    public ?string $JPGToPNG;
+    public ?string $PNGToJPG;
+    public ?string $WEBPToPNG;
+    public ?string $WEBPToJPG;
+    public ?string $PNGToWEBP;
+    public ?string $JPGToWEBP;
+    public ?string $FakeNameGenerator;
+    public ?string $ROT13Decoder;
+    public ?string $PunycodeToUnicode;
+    public ?string $UnicodeToPunycode;
+    public ?string $URLParser;
 
-public static function group(): string {
+    public static function group(): string {
         return 'tool-slugs';
     }
 }

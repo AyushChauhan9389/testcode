@@ -22,7 +22,7 @@ class AddHTACCESSGeneratorToolSettings extends SettingsMigration
         $this->migrator->delete('tool-htaccess-redirect-generator.enabled');
         $this->migrator->delete('tool-htaccess-redirect-generator.title');
         $this->migrator->delete('tool-htaccess-redirect-generator.summary');
-        $this->migrator->delete('tool-htaccess-redirect--generator.description');
+        $this->migrator->delete('tool-htaccess-redirect-generator.description');
 
         $this->migrator->delete('tool-htaccess-redirect-generator.metaDescription');
         $this->migrator->delete('tool-htaccess-redirect-generator.metaKeywords');

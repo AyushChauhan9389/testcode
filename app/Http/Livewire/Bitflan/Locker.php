@@ -13,12 +13,23 @@ class Locker extends Component
     public $licenseError = false;
 
     public function submitLicense() {
-		File::put( storage_path( 'bitflan/license.stp' ), $this->licenseKey );
+        $domain = request()->getHost();
+        $domain = str_replace('www.', '', $domain);
 
-		if( File::exists( storage_path( 'bitflan/lock.stp' ) ) )
-			File::delete( storage_path( 'bitflan/lock.stp' ) );
+        $response = Http::get( Bitflan::VendorAPI . 'verify_license/' . Bitflan::ID . '/' . $this->licenseKey . '/' . urlencode( $domain ) );
 
-		redirect(url('/'));
+        $data = json_decode( $response->body(), true );
+
+        if($data['code'] == 200) {
+            File::put( storage_path( 'bitflan/license.stp' ), $this->licenseKey );
+
+            if( File::exists( storage_path( 'bitflan/lock.stp' ) ) )
+                File::delete( storage_path( 'bitflan/lock.stp' ) );
+
+            redirect(url('/'));
+        } else {
+            $this->licenseError = 'Please make sure you have attached your Domain to your License and your Code is Valid.';
+        }
     }
 
     public function render()

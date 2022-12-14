@@ -50,7 +50,7 @@
         @foreach ($this->domains as $domain)
             <div class="d-flex justify-content-between align-items-center bg-light py-2 px-3 rounded mb-1">
                 <span>{{ strtolower($domain['name']) }}</span>
-                <a class="btn custom--btn px-2 py-1" target="_blank" href="{{ $domain['link'] }}">{{ trans('webtools/tools/domain-generator.buy') }}</a>
+                <a class="btn custom--btn px-2 py-1" target="_blank" href="{{ strtolower($domain['link']) }}">{{ trans('webtools/tools/domain-generator.buy') }}</a>
             </div>
         @endforeach
     @elseif($this->error == 1)

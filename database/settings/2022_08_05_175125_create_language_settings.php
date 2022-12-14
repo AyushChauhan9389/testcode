@@ -6,7 +6,7 @@ class CreateLanguageSettings extends SettingsMigration
 {
     public function up(): void
     {
-        $this->migrator->add('language.translateTools', TRUE);
+        $this->migrator->add('language.translateTools', FALSE);
         $this->migrator->add('language.defaultLanguage', 'en');
         $this->migrator->add('language.languages', [
             [

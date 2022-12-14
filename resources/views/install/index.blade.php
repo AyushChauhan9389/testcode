@@ -15,7 +15,7 @@
 
         <section class="max-w-[550px] w-full rounded bg-white shadow-md p-6 text-center flex flex-col items-center justify-center mt-3">
             <div>
-                <strong><a href="https://cutt.ly/PLFZenO" target="_blank">NULLED Web Community</a></strong> | You are installing <strong>{{ $name }}</strong> <span class="text-xs font-bold ml-1 px-2 py-0.5 bg-green-600 text-white rounded-lg">{{ $version }}</span>
+                You are installing <strong>{{ $name }}</strong> <span class="text-xs font-bold ml-1 px-2 py-0.5 bg-green-600 text-white rounded-lg">{{ $version }}</span>
             </div>
         </section>
 

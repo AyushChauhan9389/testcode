@@ -8,6 +8,7 @@
 
                 init() {
                     this.editor = ace.edit(this.$refs.editor);
+                    this.editor.session.setOption("showPrintMargin", false);
                 },
 
                 submit() {

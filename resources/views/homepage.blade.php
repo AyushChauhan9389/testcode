@@ -21,9 +21,9 @@
             </div>
             <div class="content-cats-sec">
                 @foreach($category['tools'] as $key => $tool)
-                    @if($toolOptions['tool-' . $tool['name'] . '.' . 'enabled'] != false)
+                    @if($toolOptions['tool-' . $tool['name'] . '.' . 'enabled'][0]->payload != 'false')
                         <div class="content-cats-col" data-tool data-name="{{ str_replace('"', '', $toolOptions['tool-' . $tool['name'] . '.' . 'title'][0]->payload) }}" data-summary="{{ str_replace('"', '', $toolOptions['tool-' . $tool['name'] . '.' . 'summary'][0]->payload) }}">
-                            <a href="{{ route('tool', $slugs->{$key}) }}" class="content-cats-inner">
+                            <a href="{{ !can_use($key) ? route('pricing') : route('tool', $slugs->{$key}) }}" class="content-cats-inner {{ !can_use($key) ? 'locked' : '' }}">
                                 @include($tool['templates']['selector'], [
                                     'tool'    => $tool['name'],
                                     'title'   => get_tool_title($tool['name'], str_replace('"', '', $toolOptions['tool-' . $tool['name'] . '.' . 'title'][0]->payload)),

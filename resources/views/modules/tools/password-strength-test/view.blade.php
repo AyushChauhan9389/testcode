@@ -47,7 +47,10 @@
 <div x-data="window.bitflancomponentPasswordStrength()">
     <div class="form-group">
         <label for="domain" class="custom-label">{{ trans('webtools/tools/password-strength-test.label') }}</label>
-        <input x-model="password" type="password" class="custom-input" placeholder="{{ trans('webtools/tools/password-strength-test.placeholder') }}">
+        <div class="copy-input">
+            <input x-model="password" x-ref="passInput" type="password" class="custom-input" placeholder="{{ trans('webtools/tools/password-strength-test.placeholder') }}">
+            <button class="btn custom--btn button__md copy-btn btn__dark" x-on:click="$refs.passInput.type = $refs.passInput.type == 'password' ? 'text' : 'password' " x-text="$refs.passInput.type == 'password' ? 'Show' : 'Hide'">Show</button>
+        </div>
     </div>
 
     <template x-if="password">

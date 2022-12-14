@@ -6,6 +6,7 @@
 
                 init() {
                     this.editor = ace.edit(this.$refs.editor_input);
+                    this.editor.session.setOption("showPrintMargin", false);
                     this.editor.setTheme("ace/theme/clouds");
                 },
 

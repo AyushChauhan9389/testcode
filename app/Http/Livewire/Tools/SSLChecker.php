@@ -18,10 +18,9 @@ class SSLChecker extends Component
             $data = $checkSSL->add($this->url)->check();
 
             $this->status = 'success';
-            $this->result = [
-                'success' => $data['is_valid'],
-                ...$data
-            ];
+            $this->result = $data;
+            $this->result['success'] = $data['is_valid'];
+            
         } catch(\Exception $e) {
             $this->status = 'failure';
         }

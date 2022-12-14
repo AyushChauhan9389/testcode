@@ -30,15 +30,7 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('name')->required()->columnSpan(1),
                 Forms\Components\TextInput::make('email')->required()->columnSpan(1)->email()->unique(ignorable: fn (?User $record): ?User => $record),
 
-                Forms\Components\TextInput::make('password')
-                ->columnSpan(2)
-                ->password()
-                ->label('New Password')
-                ->placeholder(fn (?User $record) => $record && $record->id === auth()->user()->id ? 'Use the Profile Page to change your own password.' : 'Set this User\'s Password')
-                ->disabled(fn (?User $record) => $record && $record->id === auth()->user()->id),
-
                 Forms\Components\Toggle::make('admin')->columnSpan(1)->disabled(!auth()->user()->super_admin),
-                Forms\Components\FileUpload::make('avatar')->image()->columnSpan(2),
             ])
         ]);
 

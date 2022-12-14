@@ -12,5 +12,5 @@
             </div>
         </div>
     </div>
-    <button x-on:click="minifyHtml()" class="btn custom--btn button__lg">{{ trans('webtools/tools/html-minifier.label') }}</button>
+    <button x-on:click="minifyHtml()" class="btn custom--btn button__lg">{{ trans('webtools/tools/html-minifier.submit') }}</button>
 </div>

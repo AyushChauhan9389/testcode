@@ -3,7 +3,7 @@
         <label class="custom-label">{{ trans('webtools/tools/text-to-binary.label') }}</label>
         <textarea x-model="input" class="rounded custom-textarea" placeholder="{{ trans('webtools/tools/text-to-binary.placeholder') }}" rows="5"></textarea>
     </div>
-    <button x-on:click="encoded = ''; for(let i=0;i<input.length;i++) { encoded += input[i].charCodeAt(0).toString(2) + ' ' };" class="btn custom--btn button__lg">{{ trans('webtools/tools/text-to-binary.submit') }}</button>
+    <button x-on:click="encoded = ''; for(let i=0;i<input.length;i++) { encoded += input[i].charCodeAt(0).toString(2) + ' ' }; encoded = encoded.trim()" class="btn custom--btn button__lg">{{ trans('webtools/tools/text-to-binary.submit') }}</button>
     
     <hr class="">
     <div class="row">

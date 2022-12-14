@@ -165,7 +165,7 @@
                     <label class="block mt-3 mb-2 text-sm font-bold text-gray-700" for="pcode">
                         Purchase Code
                     </label>
-                    <input wire:model.defer="licenseKey" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="pcode" type="text" placeholder="enter random value">
+                    <input wire:model.defer="licenseKey" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="pcode" type="text" placeholder="Your Envato purchase code here.">
                     <a class="mt-3 text-xs text-gray-600" href="https://help.market.envato.com/hc/en-us/articles/202822600-Where-Is-My-Purchase-Code-" target="_blank">Can't find your purchase code?</a>
                 </div>
 

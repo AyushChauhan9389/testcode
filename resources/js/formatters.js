@@ -5,7 +5,7 @@ window.bitflanFormattersComponent = function(mode = 'html') {
 
         init() {
             this.editor = ace.edit(this.$refs.editor);
-
+            this.editor.session.setOption("showPrintMargin", false)
             this.editor.setTheme("ace/theme/clouds");
             this.editor.session.setMode("ace/mode/" + mode);
         },

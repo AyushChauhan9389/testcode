@@ -17,8 +17,7 @@ class ManageDomainGeneratorSettings extends BitflanSettingsPage
 
     protected $toSanitize = [
         'title',
-        'summary',
-        'affiliateUrl'
+        'summary'
     ];
 
     protected function getFormSchema(): array

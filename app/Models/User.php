@@ -23,11 +23,9 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         'email',
         'password',
         'avatar',
-        'balance',
-        'payout_method',
-        'payout_address',
         'admin',
-        'super_admin'
+        'super_admin',
+        'email_verified_at'
     ];
 
     /**
@@ -36,7 +34,6 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
         'remember_token',
     ];
 
@@ -52,5 +49,14 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     public function canAccessFilament() : bool
     {
         return $this->admin || $this->super_admin;
+    }
+
+    public function premium() : bool
+    {
+        return $this->admin || $this->super_admin || $this->subscription_id != NULL || $this->allow_till > now();
+    }
+
+    public function checkout() {
+        return $this->hasOne(Checkout::class);
     }
 }

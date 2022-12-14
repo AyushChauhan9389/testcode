@@ -166,8 +166,20 @@ class Installer extends Component
     }
 
     public function submitLicense() {
-		File::put( storage_path( 'bitflan/license.stp' ), $this->licenseKey );
-		$this->stage = 2;
+        $domain = request()->getHost();
+        $domain = str_replace('www.', '', $domain);
+
+        $response = Http::get( Bitflan::VendorAPI . 'verify_license/' . Bitflan::ID . '/' . $this->licenseKey . '/' . urlencode( $domain ) );
+
+        $data = json_decode( $response->body(), true );
+
+        if($data['code'] == 200) {
+            File::put( storage_path( 'bitflan/license.stp' ), $this->licenseKey );
+
+            $this->stage = 2;
+        } else {
+            $this->licenseError = 'Please make sure you have attached your Domain to your License and your Code is Valid.';
+        }
     }
 
     public function submitDb() {
@@ -179,7 +191,8 @@ class Installer extends Component
         ]);
 
         try {
-            $db = new \pdo('mysql:host=' . $this->dbHost . ($this->dbPort && $this->dbPort == '3306' ? ':' . $this->dbPort : '') . ';dbname=' . $this->dbName, $this->dbUsername, $this->dbPassword, array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION) );
+            $port = $this->dbPort && $this->dbPort != '3306' ? ':' . $this->dbPort : '';
+            $db = new \pdo('mysql:host=' . $this->dbHost . $port . ';dbname=' . $this->dbName, $this->dbUsername, $this->dbPassword, array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION) );
 
             $env = File::get( base_path( '.env' ) );
 

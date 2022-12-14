@@ -5,13 +5,16 @@ namespace App\Providers;
 use App\Models\BlogPost;
 use App\Models\Page;
 use App\Models\User;
+use App\Settings\GeneralSettings;
 use App\Settings\LanguageSettings;
+use App\Settings\SMTPSettings;
 use Filament\Facades\Filament;
 use Illuminate\Support\ServiceProvider;
 use Filament\Forms\Components;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
@@ -54,6 +57,28 @@ class AppServiceProvider extends ServiceProvider
                 App::setLocale($selected);
             else
                 App::setLocale($default);
+
+            $smtpSettings = app(SMTPSettings::class);
+            $generalSettings = app(GeneralSettings::class);
+    
+            Config::set('app.name', $generalSettings->websiteTitle);
+    
+            if($smtpSettings->enabled) {
+                $config = [
+                    'driver' => 'smtp',
+                    'host'   => $smtpSettings->host,
+                    'port'   => $smtpSettings->port,
+                    'from'   => [
+                        'address' => $smtpSettings->from,
+                        'name'    => $smtpSettings->name,
+                    ],
+                    'encryption' => $smtpSettings->encryption,
+                    'username'   => $smtpSettings->username,
+                    'password'   => $smtpSettings->password
+                ];
+    
+                Config::set('mail', $config);
+            }
         }
 
         Paginator::defaultView('components.pagination-links');
@@ -94,8 +119,9 @@ class AppServiceProvider extends ServiceProvider
             ])->onSubmit(function (ToolInput $input) {
 
                 if(function_exists('symlink')) {
-                    File::ensureDirectoryExists(public_path('storage'));
-                    File::deleteDirectory(public_path('storage'));
+                    if(File::isDirectory(public_path('storage')) && File::isEmptyDirectory(public_path('storage'))) {
+                        File::deleteDirectory(public_path('storage'));
+                    }
 
                     Artisan::call('storage:link');
 
@@ -129,5 +155,15 @@ class AppServiceProvider extends ServiceProvider
                 }
             });
         });
+
+        if(auth()->check()) {
+            $user = User::find(auth()->user()->id);
+
+            if($user->allow_till < now()) {
+                $user->allow_till = NULL;
+
+                $user->save();
+            }
+        }
     }
 }

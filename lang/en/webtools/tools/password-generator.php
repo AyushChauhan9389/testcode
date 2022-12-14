@@ -10,7 +10,7 @@ return [
     'numbers' => 'Include Numbers',
     'lowercase' => 'Include Lowercase Characters',
     'uppercase' => 'Include Uppercase Characters',
-    'ambiguous' => 'Exclude Ambiguous Characters',
+    'ambiguous' => 'Include Ambiguous Characters',
     'submit' => 'Generate Password',
     'result-label' => 'Your New Password',
     'result-placeholder' => 'Your New Password will be here.'

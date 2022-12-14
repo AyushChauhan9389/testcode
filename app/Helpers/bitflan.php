@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\BlogPost;
 use App\Models\Page;
 use App\Settings\GeneralSettings;
 use App\Settings\LanguageSettings;
+use App\Settings\SassFeatures;
 use App\Settings\ToolSlugSettings;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Sitemap\SitemapGenerator;
@@ -336,14 +338,45 @@ if( !function_exists('get_locale') ) {
     }
 }
 
+if( !function_exists('get_tool_title_from_key') ) {
+    function get_tool_title_from_key($name) {
+        $settings = app(LanguageSettings::class);
+
+        if($settings->translateTools) {
+            foreach(config('tools.categories') as $cats) {
+                foreach($cats['tools'] as $toolKey => $tool) {
+                    if($toolKey == $name) {
+                        return trans('webtools/tools/' . $tool['name'] . '.title');
+                        break;
+                    }
+                }
+            }
+        }
+            
+    
+        foreach(config('tools.categories') as $cats) {
+            foreach($cats['tools'] as $toolKey => $tool) {
+                if($toolKey == $name) {
+                    $setts = app($tool['settings']);
+
+                    return $setts->title;
+                    break;
+                }
+            }
+        }
+
+        return 'Unknown';
+    }
+}
+
 if( !function_exists('get_tool_title') ) {
     function get_tool_title($name, $default) {
         $settings = app(LanguageSettings::class);
 
         if($settings->translateTools)
-            return trans('webtools/tools/' . $name . '.title');
+            return str_replace("\\/", '/', trans('webtools/tools/' . $name . '.title'));
     
-        return $default;
+        return str_replace("\\/", '/', $default);
     }
 }
 
@@ -352,9 +385,9 @@ if( !function_exists('get_tool_summary') ) {
         $settings = app(LanguageSettings::class);
 
         if($settings->translateTools)
-            return trans('webtools/tools/' . $name . '.summary');
+            return str_replace("\\/", '/', trans('webtools/tools/' . $name . '.summary'));
     
-        return $default;
+        return str_replace("\\/", '/', $default);
     }
 }
 
@@ -363,9 +396,9 @@ if( !function_exists('get_tool_description') ) {
         $settings = app(LanguageSettings::class);
 
         if($settings->translateTools)
-            return trans('webtools/tools/' . $name . '.description');
+            return str_replace("\\/", '/', trans('webtools/tools/' . $name . '.description'));
     
-        return $default;
+        return str_replace("\\/", '/', $default);
     }
 }
 
@@ -395,16 +428,47 @@ function get_tld($domain) {
 }
 
 function getClientIp() {
-    foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key){
-        if (array_key_exists($key, $_SERVER) === true){
-            foreach (explode(',', $_SERVER[$key]) as $ip){
-                $ip = trim($ip); // just to be safe
-                if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false){
-                    return $ip;
-                }
+    // foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key){
+    //     if (array_key_exists($key, $_SERVER) === true){
+    //         foreach (explode(',', $_SERVER[$key]) as $ip){
+    //             $ip = trim($ip); // just to be safe
+    //             if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false){
+    //                 return $ip;
+    //             }
+    //         }
+    //     }
+    // }
+
+    $ipAddress = '';
+    if (! empty($_SERVER['HTTP_CLIENT_IP'])) {
+        // to get shared ISP IP address
+        $ipAddress = $_SERVER['HTTP_CLIENT_IP'];
+    } else if (! empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        // check for IPs passing through proxy servers
+        // check if multiple IP addresses are set and take the first one
+        $ipAddressList = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+        foreach ($ipAddressList as $ip) {
+            if (! empty($ip)) {
+                // if you prefer, you can check for valid IP address here
+                $ipAddress = $ip;
+                break;
             }
         }
+    } else if (! empty($_SERVER['HTTP_X_FORWARDED'])) {
+        $ipAddress = $_SERVER['HTTP_X_FORWARDED'];
+    } else if (! empty($_SERVER['HTTP_X_CLUSTER_CLIENT_IP'])) {
+        $ipAddress = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
+    } else if (! empty($_SERVER['HTTP_FORWARDED_FOR'])) {
+        $ipAddress = $_SERVER['HTTP_FORWARDED_FOR'];
+    } else if (! empty($_SERVER['HTTP_FORWARDED'])) {
+        $ipAddress = $_SERVER['HTTP_FORWARDED'];
+    } else if (! empty($_SERVER['REMOTE_ADDR'])) {
+        $ipAddress = $_SERVER['REMOTE_ADDR'];
     }
+    
+    if($ipAddress)
+        return $ipAddress;
+
     return 'Not Found';
 }
 
@@ -446,5 +510,47 @@ function generate_new_sitemap() {
         );
     }
 
+    if(app(GeneralSettings::class)->blogSection) {
+        $sitemap->add(
+            Url::create("/blog")
+            ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
+            ->setPriority(0.6)
+        );
+
+        foreach(BlogPost::all() as $post) {
+            $sitemap->add(
+                Url::create("/blog/{$post->slug}")
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
+                ->setPriority(0.6)
+            );
+        }
+    }
+
     $sitemap->writeToFile(public_path('sitemap.xml'));
 }
+
+function can_use($tool) {
+    $settings = app(SassFeatures::class);
+
+    if(auth()->check() && auth()->user()->premium())
+        return true;
+
+    if(!in_array($tool, $settings->premiumTools))
+        return true;
+
+    return false;
+}
+
+function str_rot($s, $n = 13) {
+    $n = (int)$n % 26;
+    if (!$n) return $s;
+    for ($i = 0, $l = strlen($s); $i < $l; $i++) {
+        $c = ord($s[$i]);
+        if ($c >= 97 && $c <= 122) {
+          $s[$i] = chr(($c - 71 + $n) % 26 + 97);
+        } else if ($c >= 65 && $c <= 90) {
+          $s[$i] = chr(($c - 39 + $n) % 26 + 65);
+        }
+    }
+    return $s;
+  }

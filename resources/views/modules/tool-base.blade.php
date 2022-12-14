@@ -37,9 +37,9 @@
         <div class="content-cats-sec">
             @foreach($related as $toolKey => $relatedTool)
                 @if($relatedTool['name'] != $tool['name'])
-                    @if($toolOptions['tool-' . $relatedTool['name'] . '.' . 'enabled'] != false)
+                    @if($toolOptions['tool-' . $relatedTool['name'] . '.' . 'enabled'][0]->payload != 'false')
                         <div class="content-cats-col">
-                            <a href="{{ route('tool', $toolSlugs->{$toolKey}) }}" class="content-cats-inner">
+                            <a href="{{ !can_use($toolKey) ? route('pricing') : route('tool', $toolSlugs->{$toolKey}) }}" class="content-cats-inner {{ !can_use($toolKey) ? 'locked' : '' }}">
                                 @include($relatedTool['templates']['selector'], [
                                     'tool'    => $relatedTool['name'],
                                     'title'   => get_tool_title($relatedTool['name'], str_replace('"', '', $toolOptions['tool-' . $relatedTool['name'] . '.' . 'title'][0]->payload)),

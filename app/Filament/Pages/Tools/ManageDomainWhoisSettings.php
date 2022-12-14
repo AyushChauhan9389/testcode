@@ -26,6 +26,13 @@ class ManageDomainWhoisSettings extends BitflanSettingsPage
                 Components\RichEditor::make('description')->placeholder('The Description of this Tool.')->helperText('This appears on the tool page. It\'s recommended for SEO.')->required()->columnSpan(2),
             ]),
 
+            Components\Card::make()->columnSpan(2)->columns(1)->schema([
+                Components\Repeater::make('servers')->default([])->schema([
+                    Components\TextInput::make('tld')->label('Top Level Domain')->helperText('The Top Level Domain (com, net, org, ...etc)'),
+                    Components\TextInput::make('server')->helperText('Hostname of the Nameserver'),
+                ])
+            ]),
+
             Components\Card::make()->columnSpan(2)->schema([
                 Components\Textarea::make('metaDescription')->placeholder('SEO Description')->helperText('This the SEO Description that will be used in Meta & Open-Graph Tags')->rows(2)->required()->columnSpan(2),
                 Components\Textarea::make('metaKeywords')->placeholder('SEO Keywords')->helperText('This will be used in the Meta Keywords Field.')->rows(2)->columnSpan(2),

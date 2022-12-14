@@ -8,10 +8,8 @@ use App\Models\ToolView;
 use App\Settings\GeneralSettings;
 use App\Settings\LanguageSettings;
 use App\Settings\ToolSlugSettings;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Lang;
 
 class MainController extends Base
 {
@@ -84,6 +82,7 @@ class MainController extends Base
             $settings = app($tool['settings']);
 
             abort_if(!$settings->enabled, 404, 'NOT FOUND');
+            abort_if(!can_use($key), 403, 'UNAUTHORIZED');
 
             $related = $category['tools'];
 
@@ -145,7 +144,7 @@ class MainController extends Base
             'description' => $settings->blogDescription,
             'keywords'    => $settings->blogKeywords,
 
-            'posts'       => BlogPost::select('title', 'slug', 'summary', 'thumbnail')->paginate(9)
+            'posts'       => BlogPost::select('title', 'slug', 'summary', 'thumbnail', 'created_at')->paginate(9)
         ]);
     }
 

@@ -1,3 +1,4 @@
+<link rel="canonical" href="{{ url()->current() }}" />
 <meta name="title" content="{{ $title }} — {{ $generalSettings->websiteTitle }}">
 <meta name="description" content="{{ $description }}">
 

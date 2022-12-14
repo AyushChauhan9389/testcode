@@ -52,25 +52,6 @@ class Contact extends Component
             try {
                 $email = $this->email;
 
-                $smtpSettings = app(SMTPSettings::class);
-
-                if($smtpSettings->enabled) {
-                    $config = [
-                        'driver' => 'smtp',
-                        'host'   => $smtpSettings->host,
-                        'port'   => $smtpSettings->port,
-                        'from'   => [
-                            'address' => $smtpSettings->from,
-                            'name'    => $smtpSettings->name,
-                        ],
-                        'encryption' => $smtpSettings->encryption,
-                        'username'   => $smtpSettings->username,
-                        'password'   => $smtpSettings->password
-                    ];
-
-                    Config::set('mail', $config);
-                }
-
                 Mail::send('emails.contact-message', [
                     'name' => $this->name,
                     'email' => $this->email,

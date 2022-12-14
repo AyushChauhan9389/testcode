@@ -13,6 +13,9 @@ const mix = require('laravel-mix');
 
 mix
     .js('resources/js/app.js', 'public/js/app.js')
+    .js('resources/js/punycode.js', 'public/js/punycode.js')
+    .js('resources/js/converters.js', 'public/js/converters.js')
+    .js('resources/js/cards.js', 'public/js/cards.js')
     .sass('resources/scss/style.scss', 'public/css/app.css')
 
 .minify('resources/js/lipsum.js', 'public/js/lipsum.js')
