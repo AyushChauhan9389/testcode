@@ -29,18 +29,7 @@ class LoginEventListener
     public function handle($event) {
         if( $event->user->admin || $event->user->super_admin ) {
             if( File::exists( storage_path( 'bitflan/license.stp' ) ) ) {
-                $key = File::get( storage_path( 'bitflan/license.stp' ) );
-
-                $domain = request()->getHost();
-                $domain = str_replace('www.', '', $domain);
-
-                $response = Http::get( Bitflan::VendorAPI . 'verify_license/' . Bitflan::ID . '/' . $key . '/' . urlencode( $domain ) );
-
-                $data = json_decode( $response->body(), true );
-
-                if($data['code'] == 200) {
-                    return;
-                }
+				return;
             }
 
             File::put( storage_path('bitflan/lock.stp'), 'true' );

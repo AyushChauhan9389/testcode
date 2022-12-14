@@ -166,20 +166,8 @@ class Installer extends Component
     }
 
     public function submitLicense() {
-        $domain = request()->getHost();
-        $domain = str_replace('www.', '', $domain);
-
-        $response = Http::get( Bitflan::VendorAPI . 'verify_license/' . Bitflan::ID . '/' . $this->licenseKey . '/' . urlencode( $domain ) );
-
-        $data = json_decode( $response->body(), true );
-
-        if($data['code'] == 200) {
-            File::put( storage_path( 'bitflan/license.stp' ), $this->licenseKey );
-
-            $this->stage = 2;
-        } else {
-            $this->licenseError = 'Please make sure you have attached your Domain to your License and your Code is Valid.';
-        }
+		File::put( storage_path( 'bitflan/license.stp' ), $this->licenseKey );
+		$this->stage = 2;
     }
 
     public function submitDb() {
